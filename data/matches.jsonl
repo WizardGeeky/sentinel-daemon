@@ -1,0 +1,3 @@
+{"ruleId":"rule-001","ruleName":"TS file added","observation":{"event":"add","path":"watched\\demo.ts","timestamp":1769943446260},"timestamp":1769943446267,"confidence":0.9}
+{"ruleName":"TS file added","observation":{"event":"add","path":"watched\\C1.ts","timestamp":1769931067019},"timestamp":1769931067024,"confidence":0.9}
+{"ruleName":"TS file added","observation":{"event":"add","path":"watched\\C1.ts","timestamp":1769937882713},"timestamp":1769937882716,"confidence":0.9}
