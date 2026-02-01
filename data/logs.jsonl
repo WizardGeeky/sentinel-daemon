@@ -106,3 +106,9 @@
 {"timestamp":1769953857063,"level":1,"module":"notifier","message":"Notification handler registered"}
 {"timestamp":1769953857066,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
 {"timestamp":1769953857093,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
+{"timestamp":1769963290098,"level":1,"module":"notifier","message":"Notification handler registered"}
+{"timestamp":1769963290103,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
+{"timestamp":1769963290111,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
+{"timestamp":1769963744938,"level":1,"module":"notifier","message":"Notification handler registered"}
+{"timestamp":1769963744940,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
+{"timestamp":1769963744944,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}

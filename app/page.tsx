@@ -53,7 +53,7 @@ function Badge({ children, className, variant = "neutral" }: { children: React.R
     info: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
   };
   return (
-    <span className={cn("px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider border", variants[variant], className)}>
+    <span className={cn("px-2 py-0.5 rounded text-[9px] md:text-[10px] uppercase font-black tracking-widest border whitespace-nowrap", variants[variant], className)}>
       {children}
     </span>
   );
@@ -276,8 +276,6 @@ export default function Home() {
   };
 
   const handleDeleteRule = async (id: string) => {
-    // Custom non-blocking confirm is harder, so I'll keep the browser confirm for now
-    // as it's a critical action, but I'll use toast for the result.
     if (!window.confirm("Delete this rule?")) return;
     try {
       const res = await fetch(`/api/v1/rules?id=${id}`, { method: "DELETE" });
@@ -321,69 +319,66 @@ export default function Home() {
     return filtered;
   }, [events, logFilter, logSearchQuery]);
 
-  // Mobile Navigation Overlay
-  const MobileNav = () => (
-    <AnimatePresence>
-      {sidebarOpen && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSidebarOpen(false)}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 lg:hidden"
-          />
-          <motion.div
-            initial={{ x: "-100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "-100%" }}
-            className="fixed inset-y-0 left-0 w-64 bg-zinc-900 border-r border-white/10 z-50 lg:hidden flex flex-col"
-          >
-            <div className="p-6 border-b border-white/10 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Shield className="w-6 h-6 text-indigo-500" />
-                <span className="font-bold text-white">SENTINEL</span>
-              </div>
-              <button onClick={() => setSidebarOpen(false)}><X className="w-5 h-5 text-zinc-400" /></button>
-            </div>
-            <nav className="p-4 space-y-1">
-              {[
-                { id: "dashboard", icon: LayoutDashboard, label: "Dashboard" },
-                { id: "rules", icon: FileCode, label: "Rules Engine" },
-                { id: "analytics", icon: BarChart3, label: "Analytics" },
-                { id: "logs", icon: Activity, label: "Live Logs" }
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => { setActiveTab(item.id as any); setSidebarOpen(false); }}
-                  className={cn(
-                    "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
-                    activeTab === item.id ? "bg-indigo-600 text-white" : "text-zinc-400 hover:text-white hover:bg-white/5"
-                  )}
-                >
-                  <item.icon className="w-5 h-5" />
-                  {item.label}
-                </button>
-              ))}
-            </nav>
-            <div className="mt-auto p-4 border-t border-white/10">
-              <div className="flex items-center gap-2 text-xs text-emerald-500 bg-emerald-500/10 px-3 py-2 rounded-lg border border-emerald-500/20">
-                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Daemon Active
-              </div>
-            </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  );
 
   return (
     <div className="min-h-screen bg-black text-zinc-200 font-sans flex relative overflow-hidden">
       <BackgroundSignals />
       <CursorSignals />
 
-      <MobileNav />
+      {/* Mobile Navigation Overlay */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSidebarOpen(false)}
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 lg:hidden"
+            />
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              className="fixed inset-y-0 left-0 w-64 bg-zinc-900 border-r border-white/10 z-50 lg:hidden flex flex-col"
+            >
+              <div className="p-6 border-b border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Shield className="w-6 h-6 text-indigo-500" />
+                  <span className="font-bold text-white">SENTINEL</span>
+                </div>
+                <button onClick={() => setSidebarOpen(false)}><X className="w-5 h-5 text-zinc-400" /></button>
+              </div>
+              <nav className="p-4 space-y-1">
+                {[
+                  { id: "dashboard", icon: LayoutDashboard, label: "Dashboard" },
+                  { id: "rules", icon: FileCode, label: "Rules Engine" },
+                  { id: "analytics", icon: BarChart3, label: "Analytics" },
+                  { id: "logs", icon: Activity, label: "Live Logs" }
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => { setActiveTab(item.id as any); setSidebarOpen(false); }}
+                    className={cn(
+                      "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors outline-none",
+                      activeTab === item.id ? "bg-indigo-600 text-white" : "text-zinc-400 hover:text-white hover:bg-white/5"
+                    )}
+                  >
+                    <item.icon className="w-5 h-5" />
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+              <div className="mt-auto p-4 border-t border-white/10">
+                <div className="flex items-center gap-2 text-xs text-emerald-500 bg-emerald-500/10 px-3 py-2 rounded-lg border border-emerald-500/20">
+                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Daemon Active
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex w-64 glass border-r border-white/5 flex-col fixed inset-y-0 z-40">
@@ -448,7 +443,10 @@ export default function Home() {
       <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
         <header className="h-16 border-b border-white/5 bg-black/50 backdrop-blur-xl sticky top-0 z-30 flex items-center justify-between px-4 lg:px-8">
           <div className="flex items-center gap-4">
-            <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 -ml-2 text-zinc-400 hover:text-white">
+            <button
+              onClick={(e) => { e.stopPropagation(); setSidebarOpen(true); }}
+              className="lg:hidden p-2 -ml-2 text-zinc-400 hover:text-white active:bg-white/10 rounded-lg transition-colors"
+            >
               <Menu className="w-6 h-6" />
             </button>
             <h1 className="text-lg font-semibold text-white capitalize">{activeTab}</h1>
@@ -599,59 +597,113 @@ export default function Home() {
                 </SpotlightCard>
               </div>
 
-              {/* AI Command Center */}
-              <div className="col-span-1 md:col-span-8 glass-card border-none rounded-3xl p-8 relative overflow-hidden">
-                <div className="absolute -top-24 -right-24 w-96 h-96 bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none animate-pulse-slow" />
-                <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none animate-pulse-slow" />
+              {/* AI Command Center / Neural Chat */}
+              <div className="col-span-1 md:col-span-8 group relative">
+                <div className="absolute -inset-px bg-gradient-to-r from-indigo-500/50 to-emerald-500/50 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-20 transition duration-1000"></div>
+                <div className="relative glass-card border-none rounded-[2rem] p-4 md:p-8 overflow-hidden h-full flex flex-col">
+                  <div className="absolute -top-24 -right-24 w-96 h-96 bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none animate-pulse-slow" />
+                  <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none animate-pulse-slow" />
 
-                <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-xl font-bold text-white flex items-center gap-3">
-                    <div className="p-2 bg-indigo-500/20 rounded-xl">
-                      <Zap className="w-5 h-5 text-indigo-400" />
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center gap-4">
+                      <div className="relative">
+                        <div className="p-3 bg-indigo-600 rounded-2xl shadow-[0_0_20px_rgba(79,70,229,0.4)]">
+                          <Zap className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-zinc-900 animate-pulse" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-bold text-white tracking-tight">Neural Rule Engine</h2>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-[10px] text-zinc-500 uppercase font-black tracking-widest">Core Consciousness</span>
+                          <div className="h-1 w-1 rounded-full bg-zinc-700" />
+                          <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-widest">Active & Learning</span>
+                        </div>
+                      </div>
                     </div>
-                    Neural Rule Engine
-                  </h2>
-                  <Badge variant="info" className="bg-indigo-500/10 text-indigo-300 border-indigo-500/20 px-3 py-1">AI Powered</Badge>
-                </div>
-
-                <form onSubmit={handleLearnRule} className="relative z-10">
-                  <div className="relative group">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-emerald-500 rounded-2xl blur opacity-20 group-focus-within:opacity-40 transition duration-1000"></div>
-                    <textarea
-                      value={input}
-                      onChange={e => setInput(e.target.value)}
-                      placeholder="Describe security rules in plain English... (e.g. 'Watch for SSH keys changes')"
-                      className="relative w-full bg-black/60 border border-white/10 rounded-2xl p-6 text-base focus:outline-none transition-all resize-none h-40 font-mono leading-relaxed placeholder:text-zinc-600 shadow-inner"
-                      onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleLearnRule(e); } }}
-                    />
-                    <div className="absolute bottom-4 right-4 flex gap-3">
-                      <button
-                        type="submit"
-                        disabled={loading || !input.trim()}
-                        className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] disabled:opacity-50 disabled:hover:shadow-none active:scale-95"
-                      >
-                        {loading ? <Activity className="w-4 h-4 animate-spin" /> : <>Generate Rule <ChevronRight className="w-4 h-4" /></>}
-                      </button>
-                    </div>
+                    <Badge variant="info" className="hidden sm:flex bg-indigo-500/10 text-indigo-300 border-indigo-500/20 px-3 py-1 animate-pulse">Neural_v2.4</Badge>
                   </div>
-                </form>
 
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <span className="text-xs text-zinc-500 font-bold uppercase tracking-widest py-1">Common Prompts:</span>
-                  {[
-                    { text: "Monitor .env changes", icon: Shield },
-                    { text: "Detect node_modules delete", icon: Trash2 },
-                    { text: "Large file uploads > 50MB", icon: Zap }
-                  ].map((ex, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setInput(ex.text)}
-                      className="text-xs flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-xl text-zinc-400 hover:text-white transition-all active:scale-95"
-                    >
-                      <ex.icon className="w-3 h-3" />
-                      {ex.text}
-                    </button>
-                  ))}
+                  {/* Chat-like input area */}
+                  <div className="flex-1 flex flex-col bg-black/40 rounded-3xl border border-white/5 p-4 md:p-6 backdrop-blur-md relative overflow-hidden">
+                    {loading && (
+                      <motion.div
+                        initial={{ top: "-100%" }}
+                        animate={{ top: "100%" }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                        className="absolute left-0 right-0 h-20 bg-gradient-to-b from-transparent via-indigo-500/10 to-transparent pointer-events-none z-10"
+                      />
+                    )}
+
+                    <div className="flex-1 min-h-[140px] mb-4 overflow-y-auto custom-scrollbar pr-2">
+                      {!input && (
+                        <div className="h-full flex flex-col items-center justify-center space-y-4 opacity-40 py-8">
+                          <div className="p-4 bg-zinc-900 rounded-full border border-white/5">
+                            <Shield className="w-8 h-8 text-indigo-500 animate-pulse" />
+                          </div>
+                          <p className="text-[10px] text-center font-mono max-w-[200px] uppercase tracking-tighter">Initializing neural interface... Ready for input.</p>
+                        </div>
+                      )}
+                      {input && (
+                        <div className="space-y-4">
+                          <div className="flex gap-3 items-end">
+                            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center flex-shrink-0 mb-1">
+                              <span className="text-[8px] md:text-[10px] font-black text-indigo-400">SR</span>
+                            </div>
+                            <div className="bg-indigo-500/10 px-4 py-3 rounded-2xl rounded-bl-none border border-indigo-500/20 text-xs md:text-sm text-zinc-200 font-mono leading-relaxed max-w-[85%]">
+                              {input}
+                            </div>
+                          </div>
+                          {loading && (
+                            <div className="flex gap-3 items-end">
+                              <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 animate-pulse mb-1">
+                                <Zap className="w-3 h-3 text-emerald-400" />
+                              </div>
+                              <div className="bg-white/5 px-4 py-3 rounded-2xl rounded-bl-none border border-white/5 text-[10px] md:text-xs text-zinc-400 font-mono italic animate-pulse">
+                                Synthesizing security patterns...
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    <form onSubmit={handleLearnRule} className="relative">
+                      <div className="relative group/input">
+                        <textarea
+                          value={input}
+                          onChange={e => setInput(e.target.value)}
+                          placeholder="Command the sentinel... (e.g., 'Watch for SSH keys changes')"
+                          className="w-full bg-zinc-950/80 border border-white/10 rounded-2xl p-4 md:p-5 pr-14 text-sm focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition-all resize-none h-28 font-mono leading-relaxed placeholder:text-zinc-600 shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)]"
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                              e.preventDefault();
+                              handleLearnRule(e);
+                            }
+                          }}
+                        />
+                        <button
+                          type="submit"
+                          disabled={loading || !input.trim()}
+                          className="absolute right-3 bottom-3 p-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl transition-all hover:shadow-[0_0_15px_rgba(99,102,241,0.5)] disabled:opacity-30 disabled:grayscale active:scale-90"
+                        >
+                          {loading ? <Activity className="w-5 h-5 animate-spin" /> : <ChevronRight className="w-5 h-5" />}
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {["Monitor .env changes", "Detect large uploads", "Watch SSH keys"].map((ex, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setInput(ex)}
+                        className="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/5 rounded-lg text-zinc-500 hover:text-white transition-all"
+                      >
+                        {ex}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -728,7 +780,7 @@ export default function Home() {
                       layout
                       className="transition-all"
                     >
-                      <SpotlightCard className="rounded-2xl p-6 flex flex-col h-full hover:translate-y-[-2px]">
+                      <SpotlightCard className="rounded-2xl p-4 sm:p-6 flex flex-col h-full hover:translate-y-[-2px]">
                         <div className="flex justify-between items-start mb-5">
                           <Badge variant="info" className="bg-indigo-500/10 text-indigo-400 border-indigo-500/20">{rule.event}</Badge>
                           <button onClick={() => handleDeleteRule(rule.id)} className="p-2 rounded-lg text-zinc-600 hover:text-rose-400 hover:bg-rose-400/10 transition-all relative z-10">
@@ -751,219 +803,269 @@ export default function Home() {
             </div>
           )}
 
-
-
           {/* ANALYTICS TAB */}
           {activeTab === 'analytics' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4">
-
-              {/* Event Distribution - Pie Chart */}
-              <div className="glass-card rounded-3xl p-8 flex flex-col">
-                <h3 className="text-lg font-bold text-white mb-8 flex items-center gap-3">
-                  <div className="p-2 bg-indigo-500/20 rounded-xl">
-                    <Activity className="w-5 h-5 text-indigo-400" />
-                  </div>
-                  Event Profile
-                </h3>
-                <div className="flex-1 min-h-[250px] relative">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={[
-                          { name: 'Add', value: events.filter(e => e.event === 'add').length, fill: '#10b981' },
-                          { name: 'Change', value: events.filter(e => e.event === 'change').length, fill: '#6366f1' },
-                          { name: 'Delete', value: events.filter(e => e.event === 'unlink').length, fill: '#ef4444' },
-                        ].filter(i => i.value > 0)}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={60}
-                        outerRadius={80}
-                        paddingAngle={5}
-                        dataKey="value"
-                      >
-                        {/* Cell mapping removed, using inline fill */}
-                      </Pie>
-                      <Tooltip
-                        contentStyle={{ backgroundColor: '#18181b', borderColor: '#3f3f46', borderRadius: '8px' }}
-                        itemStyle={{ color: '#fff' }}
-                      />
-                      <Legend verticalAlign="bottom" height={36} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-
-              {/* Activity Volume - Bar Chart */}
-              <div className="glass-card rounded-3xl p-8 md:col-span-2">
-                <h3 className="text-lg font-bold text-white mb-8 flex items-center gap-3">
-                  <div className="p-2 bg-emerald-500/20 rounded-xl">
-                    <BarChart3 className="w-5 h-5 text-emerald-400" />
-                  </div>
-                  System Activity Pulse
-                </h3>
-                <div className="h-[250px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    {isMounted ? (
-                      <BarChart data={
-                        // Mock time distribution based on last 10 minutes (simplified)
-                        Array.from({ length: 10 }).map((_, i) => ({
-                          time: `${i}m ago`,
-                          count: events.filter(e => e.timestamp > Date.now() - (i + 1) * 60000 && e.timestamp <= Date.now() - i * 60000).length
-                        })).reverse()
-                      }>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
-                        <XAxis dataKey="time" stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
-                        <Tooltip
-                          cursor={{ fill: '#ffffff10' }}
-                          contentStyle={{ backgroundColor: '#18181b', borderColor: '#3f3f46', borderRadius: '8px' }}
-                          itemStyle={{ color: '#fff' }}
-                        />
-                        <Bar dataKey="count" fill="#6366f1" radius={[4, 4, 0, 0]} maxBarSize={40} />
-                      </BarChart>
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-zinc-700 text-xs">Loading metrics...</div>
-                    )}
-                  </ResponsiveContainer>
-                </div>
-              </div>
-
-              {/* Rule Confidence Radar */}
-              <div className="glass-card rounded-3xl p-8">
-                <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-3">
-                  <div className="p-2 bg-amber-500/20 rounded-xl">
-                    <Shield className="w-5 h-5 text-amber-400" />
-                  </div>
-                  Intelligence Accuracy
-                </h3>
-                <p className="text-xs text-zinc-500 mb-4">AI confidence scores for active rules</p>
-                <div className="h-[250px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={rules.map(r => ({ name: r.name.substring(0, 10), score: r.confidence * 100 }))}>
-                      <defs>
-                        <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.8} />
-                          <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
-                      <XAxis dataKey="name" stroke="#71717a" fontSize={10} tickLine={false} axisLine={false} />
-                      <YAxis hide />
-                      <Tooltip
-                        contentStyle={{ backgroundColor: '#18181b', borderColor: '#3f3f46', borderRadius: '8px' }}
-                      />
-                      <Area type="monotone" dataKey="score" stroke="#8b5cf6" fillOpacity={1} fill="url(#colorScore)" />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-
-              {/* Quick Metrics */}
-              <div className="glass-card rounded-3xl p-8 md:col-span-2 grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4">
+              {/* Quick Metrics at Top for Mobile */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                 {[
-                  { label: "Total Volume", value: events.length, color: "text-white" },
-                  { label: "Integrity Rate", value: "100%", color: "text-emerald-400" },
-                  { label: "AI Confidence", value: `${rules.length > 0 ? Math.round(rules.reduce((a, b) => a + b.confidence, 0) / rules.length * 100) : 0}%`, color: "text-indigo-400" },
-                  { label: "Total Uptime", value: "99.9%", color: "text-amber-400" }
+                  { label: "Total Volume", value: events.length, icon: Activity, color: "text-indigo-400", bg: "bg-indigo-500/10" },
+                  { label: "Integrity Rate", value: "99.9%", icon: Shield, color: "text-emerald-400", bg: "bg-emerald-500/10" },
+                  { label: "Active Nodes", value: "4", icon: LayoutDashboard, color: "text-rose-400", bg: "bg-rose-500/10" },
+                  { label: "Threat Level", value: "Low", icon: AlertTriangle, color: "text-amber-400", bg: "bg-amber-500/10" }
                 ].map((stat, i) => (
-                  <div key={i} className="glass-morphism p-5 rounded-2xl border border-white/5 transition-transform hover:scale-105">
-                    <div className="text-zinc-500 text-[10px] uppercase font-bold tracking-widest mb-2">{stat.label}</div>
-                    <div className={cn("text-2xl font-mono font-bold", stat.color)}>{stat.value}</div>
+                  <div key={i} className="glass-card rounded-2xl p-4 md:p-6 border-none">
+                    <div className={cn("p-2 rounded-lg w-fit mb-3 md:mb-4", stat.bg)}>
+                      <stat.icon className={cn("w-4 h-4 md:w-5 md:h-5", stat.color)} />
+                    </div>
+                    <div className="text-xl md:text-2xl font-bold text-white mb-0.5">{stat.value}</div>
+                    <div className="text-[10px] md:text-xs text-zinc-500 font-medium uppercase tracking-wider">{stat.label}</div>
                   </div>
                 ))}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Event Distribution - Pie Chart */}
+                <div className="glass-card rounded-3xl p-8">
+                  <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-3">
+                    <div className="p-2 bg-indigo-500/20 rounded-xl">
+                      <PieChart className="w-5 h-5 text-indigo-400" />
+                    </div>
+                    Event Vector Analysis
+                  </h3>
+                  <div className="h-[300px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={[
+                            { name: 'Add', value: events.filter(e => e.event === 'add').length },
+                            { name: 'Change', value: events.filter(e => e.event === 'change').length },
+                            { name: 'Unlink', value: events.filter(e => e.event === 'unlink').length },
+                            { name: 'System', value: events.filter(e => e.message).length },
+                          ]}
+                          innerRadius={60}
+                          outerRadius={100}
+                          paddingAngle={8}
+                          dataKey="value"
+                        >
+                          <Cell fill="#6366f1" />
+                          <Cell fill="#10b981" />
+                          <Cell fill="#f43f5e" />
+                          <Cell fill="#f59e0b" />
+                        </Pie>
+                        <Tooltip
+                          contentStyle={{ backgroundColor: '#18181b', borderColor: '#3f3f46', borderRadius: '12px' }}
+                          itemStyle={{ color: '#fff' }}
+                        />
+                        <Legend verticalAlign="bottom" height={36} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* Event Velocity - Bar Chart */}
+                <div className="glass-card rounded-3xl p-8">
+                  <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-3">
+                    <div className="p-2 bg-emerald-500/20 rounded-xl">
+                      <BarChart3 className="w-5 h-5 text-emerald-400" />
+                    </div>
+                    Temporal Velocity
+                  </h3>
+                  <div className="h-[300px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      {isMounted ? (
+                        <BarChart data={
+                          Array.from({ length: 12 }).map((_, i) => ({
+                            time: `${12 - i}m ago`,
+                            count: events.filter(e => e.timestamp > Date.now() - (i + 1) * 60000 && e.timestamp <= Date.now() - i * 60000).length
+                          })).reverse()
+                        }>
+                          <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
+                          <XAxis dataKey="time" stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} />
+                          <YAxis stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
+                          <Tooltip
+                            cursor={{ fill: '#ffffff10' }}
+                            contentStyle={{ backgroundColor: '#18181b', borderColor: '#3f3f46', borderRadius: '8px' }}
+                            itemStyle={{ color: '#fff' }}
+                          />
+                          <Bar dataKey="count" fill="#6366f1" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                        </BarChart>
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-zinc-700 text-xs">Loading metrics...</div>
+                      )}
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* Rule Confidence - Area Chart */}
+                <div className="glass-card rounded-3xl p-8">
+                  <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-3">
+                    <div className="p-2 bg-amber-500/20 rounded-xl">
+                      <Shield className="w-5 h-5 text-amber-400" />
+                    </div>
+                    Intelligence Accuracy
+                  </h3>
+                  <p className="text-xs text-zinc-500 mb-4">AI confidence scores for active rules</p>
+                  <div className="h-[250px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={rules.map(r => ({ name: r.name ? r.name.substring(0, 10) : "Rule", score: (r.confidence || 0.8) * 100 }))}>
+                        <defs>
+                          <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.8} />
+                            <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
+                        <XAxis dataKey="name" stroke="#71717a" fontSize={10} tickLine={false} axisLine={false} />
+                        <YAxis hide />
+                        <Tooltip
+                          contentStyle={{ backgroundColor: '#18181b', borderColor: '#3f3f46', borderRadius: '8px' }}
+                        />
+                        <Area type="monotone" dataKey="score" stroke="#8b5cf6" fillOpacity={1} fill="url(#colorScore)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
               </div>
             </div>
           )}
 
-          {/* LOGS TAB */}
+          {/* LOG_TAB - Premium Activity Stream */}
           {activeTab === 'logs' && (
-            <div className="glass-card rounded-3xl border-none flex flex-col h-[calc(100vh-140px)] overflow-hidden">
+            <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4">
               {/* Log Header with Filters */}
-              <div className="p-6 border-b border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white/5 rounded-t-3xl">
-                <div className="flex items-center gap-4">
-                  <div className="p-2 bg-amber-500/20 rounded-xl">
-                    <Terminal className="w-4 h-4 text-amber-400" />
-                  </div>
-                  <div>
-                    <span className="font-mono text-xs text-zinc-300 block">/var/log/sentinel.log</span>
-                    <span className="text-[10px] text-zinc-500 uppercase font-bold tracking-widest">Real-time Stream</span>
-                  </div>
+              <div className="mb-4 md:mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6">
+                <div>
+                  <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight flex items-center gap-3">
+                    <div className="p-1.5 md:p-2 bg-amber-500/20 rounded-lg md:rounded-xl">
+                      <Activity className="w-4 h-4 md:w-5 md:h-5 text-amber-400" />
+                    </div>
+                    System Activity
+                  </h2>
+                  <p className="text-[10px] text-zinc-500 mt-0.5 md:mt-1 uppercase tracking-widest font-black opacity-50">Real-time telemetry stream</p>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-4 items-center flex-1 md:justify-end">
-                  <div className="relative w-full md:w-72 group">
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 items-stretch sm:items-center w-full md:w-auto">
+                  <div className="relative w-full sm:w-64 group">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-500 group-focus-within:text-white transition-colors" />
                     <input
                       type="text"
-                      placeholder="Search across nodes..."
+                      placeholder="Filter events..."
                       value={logSearchQuery}
                       onChange={e => setLogSearchQuery(e.target.value)}
-                      className="w-full bg-black/60 border border-white/5 rounded-xl pl-9 pr-4 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-white/20 transition-all font-mono"
+                      className="w-full bg-zinc-900 border border-white/5 rounded-xl pl-9 pr-4 py-2.5 text-xs focus:outline-none focus:ring-1 focus:ring-amber-500/30 transition-all font-sans"
                     />
                   </div>
-                  <div className="flex gap-4 items-center">
-                    <div className="flex bg-black/40 rounded-xl p-1 border border-white/5 relative">
+
+                  <div className="flex w-full sm:w-auto bg-zinc-900 rounded-xl p-1 border border-white/5 relative overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                    <div className="flex gap-1 min-w-full sm:min-w-0">
                       {["all", "system", "add", "change", "unlink"].map((f) => (
                         <button
                           key={f}
                           onClick={() => setLogFilter(f)}
                           className={cn(
-                            "px-4 py-1.5 text-[10px] uppercase font-bold tracking-wider rounded-lg transition-all relative z-10",
+                            "flex-1 sm:flex-none px-3 py-1.5 text-[10px] uppercase font-black tracking-wider rounded-lg transition-all relative z-10 whitespace-nowrap",
                             logFilter === f ? "text-black" : "text-zinc-500 hover:text-zinc-200"
                           )}
                         >
                           <span className="relative z-10">{f}</span>
                           {logFilter === f && (
                             <motion.div
-                              layoutId="activeFilter"
-                              className="absolute inset-0 bg-white shadow-[0_0_15px_rgba(255,255,255,0.4)] rounded-lg"
+                              layoutId="activeFilterMain"
+                              className="absolute inset-0 bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.4)] rounded-lg"
                               transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                             />
                           )}
                         </button>
                       ))}
                     </div>
-                    <Badge variant="neutral" className="bg-white/5 border-white/5 text-zinc-400">{filteredEvents.length} ENV_LINES</Badge>
                   </div>
                 </div>
               </div>
 
-              {/* Log Content */}
-              <div className="flex-1 overflow-auto p-6 font-mono text-[11px] space-y-1.5 scroll-smooth" ref={scrollRef}>
-                {filteredEvents.map((e, i) => (
-                  <div key={i} className="flex gap-6 hover:bg-white/5 p-2 rounded-lg transition-all group/line border border-transparent hover:border-white/5">
-                    <span className="text-zinc-600 shrink-0 select-none w-24 tabular-nums opacity-50 group-hover/line:opacity-100 transition-opacity">{new Date(e.timestamp).toLocaleTimeString()}</span>
-
-                    {/* System Log */}
-                    {e.message ? (
-                      <>
-                        <span className={cn("w-20 shrink-0 font-bold uppercase text-amber-400 group-hover/line:text-amber-300 transition-colors")}>SYSTEM</span>
-                        <span className="text-zinc-300 break-all leading-relaxed">
-                          <span className="text-zinc-500 mr-2">[{e.module || "core"}]</span>
-                          {e.message}
-                          {e.data && <span className="text-zinc-600 block text-[10px] whitespace-pre-wrap mt-2 bg-black/30 p-3 rounded-lg border border-white/5">{JSON.stringify(e.data, null, 2)}</span>}
-                        </span>
-                      </>
-                    ) : (
-                      /* File Event */
-                      <>
-                        <span className={cn("w-20 shrink-0 font-bold uppercase transition-all",
-                          e.event === 'add' ? "text-emerald-400 group-hover/line:text-emerald-300" :
-                            e.event === 'change' ? "text-indigo-400 group-hover/line:text-indigo-300" :
-                              "text-rose-400 group-hover/line:text-rose-300"
-                        )}>{e.event}</span>
-                        <span className="text-zinc-300 break-all leading-relaxed">{e.path}</span>
-                      </>
-                    )}
-                  </div>
-                ))}
-                {filteredEvents.length === 0 && (
-                  <div className="h-full flex flex-col items-center justify-center text-zinc-600 space-y-4 py-32">
+              {/* Log Content - Premium Cards */}
+              <div className="space-y-3 pr-2 scroll-smooth" ref={scrollRef}>
+                {filteredEvents.length === 0 ? (
+                  <div className="h-full flex flex-col items-center justify-center text-zinc-600 space-y-4 py-32 bg-zinc-900/20 rounded-[2.5rem] border border-white/5 border-dashed">
                     <div className="p-4 bg-white/5 rounded-full">
                       <Search className="w-8 h-8 opacity-20" />
                     </div>
                     <p className="italic font-sans text-sm tracking-tight text-zinc-500">No telemetry matches your current filter</p>
                   </div>
+                ) : (
+                  filteredEvents.slice().slice(-100).reverse().map((e, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="group relative flex items-start gap-3 md:gap-4 p-3 md:p-5 rounded-2xl md:rounded-3xl bg-zinc-900/40 border border-white/[0.03] hover:bg-zinc-900/60 hover:border-white/10 transition-all duration-300 backdrop-blur-sm"
+                    >
+                      {/* Visual Category Indicator */}
+                      <div className={cn(
+                        "w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-xl md:rounded-2xl flex items-center justify-center border transition-all group-hover:scale-110",
+                        e.message ? "bg-amber-500/10 border-amber-500/20 text-amber-500" :
+                          e.event === 'add' ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" :
+                            e.event === 'change' ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-400" :
+                              "bg-rose-500/10 border-rose-500/20 text-rose-400"
+                      )}>
+                        {e.message ? <Terminal className="w-4 h-4 md:w-5 md:h-5" /> :
+                          e.event === 'add' ? <Plus className="w-4 h-4 md:w-5 md:h-5" /> :
+                            e.event === 'change' ? <Activity className="w-4 h-4 md:w-5 md:h-5" /> :
+                              <Trash2 className="w-4 h-4 md:w-5 md:h-5" />}
+                      </div>
+
+                      {/* Info Area */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1.5 md:mb-2 text-wrap break-words">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className={cn(
+                              "text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full",
+                              e.message ? "bg-amber-500/20 text-amber-400" :
+                                e.event === 'add' ? "bg-emerald-500/20 text-emerald-400" :
+                                  e.event === 'change' ? "bg-indigo-500/20 text-indigo-400" :
+                                    "bg-rose-500/20 text-rose-400"
+                            )}>
+                              {e.message ? "SYSTEM" : e.event}
+                            </span>
+                            {e.module && <span className="text-[10px] text-zinc-600 font-mono">[{e.module}]</span>}
+                          </div>
+                          <span className="text-[10px] font-bold text-zinc-500 tabular-nums">
+                            {new Date(e.timestamp).toLocaleTimeString()}
+                          </span>
+                        </div>
+
+                        <div className="space-y-3">
+                          {e.message ? (
+                            <p className="text-sm text-zinc-200 leading-relaxed max-w-[95%]">
+                              {e.message}
+                            </p>
+                          ) : (
+                            <div className="flex items-center gap-2">
+                              <div className="w-1.5 h-1.5 rounded-full bg-zinc-700" />
+                              <span className="text-xs md:text-sm text-zinc-300 font-mono break-all selection:bg-amber-500/30 line-clamp-2 md:line-clamp-none">
+                                {e.path}
+                              </span>
+                            </div>
+                          )}
+
+                          {e.data && (
+                            <div className="mt-4 rounded-2xl overflow-hidden bg-black/40 border border-white/5 p-4 relative group/code">
+                              <div className="absolute top-2 right-2 opacity-0 group-hover/code:opacity-100 transition-opacity">
+                                <Badge variant="neutral" className="text-[8px] bg-white/5 border-none">PAYLOAD</Badge>
+                              </div>
+                              <pre className="text-[10px] text-zinc-500 font-mono overflow-auto max-h-40 custom-scrollbar pr-4">
+                                {JSON.stringify(e.data, null, 2)}
+                              </pre>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="hidden md:flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pr-2">
+                        <ChevronRight className="w-4 h-4 text-zinc-700" />
+                      </div>
+                    </motion.div>
+                  ))
                 )}
               </div>
             </div>
