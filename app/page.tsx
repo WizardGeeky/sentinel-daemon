@@ -152,7 +152,7 @@ function CursorSignals() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[999]">
+    <div className="fixed inset-0 pointer-events-none z-[999] hidden lg:block">
       <div
         className="absolute w-8 h-8 rounded-full bg-indigo-500/5 blur-2xl transition-all duration-100"
         style={{ left: mousePos.x, top: mousePos.y, transform: 'translate(-50%, -50%)' }}
@@ -321,7 +321,7 @@ export default function Home() {
 
 
   return (
-    <div className="min-h-screen bg-black text-zinc-200 font-sans flex relative overflow-hidden">
+    <div className="min-h-screen bg-black text-zinc-200 font-sans flex relative overflow-x-hidden">
       <BackgroundSignals />
       <CursorSignals />
 
@@ -441,7 +441,7 @@ export default function Home() {
 
       {/* Main Content */}
       <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
-        <header className="h-16 border-b border-white/5 bg-black/50 backdrop-blur-xl sticky top-0 z-30 flex items-center justify-between px-4 lg:px-8">
+        <header className="h-14 sm:h-16 border-b border-white/5 bg-black/50 backdrop-blur-xl sticky top-0 z-30 flex items-center justify-between px-3 sm:px-4 lg:px-8">
           <div className="flex items-center gap-4">
             <button
               onClick={(e) => { e.stopPropagation(); setSidebarOpen(true); }}
@@ -449,7 +449,7 @@ export default function Home() {
             >
               <Menu className="w-6 h-6" />
             </button>
-            <h1 className="text-lg font-semibold text-white capitalize">{activeTab}</h1>
+            <h1 className="text-sm md:text-lg font-semibold text-white capitalize">{activeTab}</h1>
           </div>
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-zinc-900 rounded-full border border-white/5">
@@ -537,7 +537,7 @@ export default function Home() {
           </div>
         </header>
 
-        <main className="flex-1 p-4 lg:p-8 overflow-y-auto w-full max-w-[1600px] mx-auto">
+        <main className="flex-1 p-3 sm:p-6 lg:p-8 overflow-y-auto w-full max-w-full lg:max-w-[1600px] mx-auto overflow-x-hidden">
 
           {/* DASHBOARD TAB */}
           {activeTab === 'dashboard' && (
@@ -932,145 +932,197 @@ export default function Home() {
 
           {/* LOG_TAB - Premium Activity Stream */}
           {activeTab === 'logs' && (
-            <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4">
-              {/* Log Header with Filters */}
-              <div className="mb-4 md:mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6">
-                <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight flex items-center gap-3">
-                    <div className="p-1.5 md:p-2 bg-amber-500/20 rounded-lg md:rounded-xl">
-                      <Activity className="w-4 h-4 md:w-5 md:h-5 text-amber-400" />
+            <div className="w-full max-w-full overflow-x-hidden space-y-6 sm:space-y-8 flex flex-col animate-in fade-in slide-in-from-bottom-4">
+              {/* Log Metrics Header - Stack 2x2 on mobile, 4 columns on desktop */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
+                {[
+                  { label: "New", value: events.filter(e => e.event === 'add').length, icon: Plus, color: "text-emerald-400", bg: "bg-emerald-500/10" },
+                  { label: "Mod", value: events.filter(e => e.event === 'change').length, icon: Activity, color: "text-indigo-400", bg: "bg-indigo-500/10" },
+                  { label: "Del", value: events.filter(e => e.event === 'unlink').length, icon: Trash2, color: "text-rose-400", bg: "bg-rose-500/10" },
+                  { label: "Sys", value: events.filter(e => e.message).length, icon: Terminal, color: "text-amber-400", bg: "bg-amber-500/10" }
+                ].map((stat, i) => (
+                  <div key={i} className="glass-card rounded-2xl p-4 sm:p-5 border-none flex flex-col items-start transition-all hover:bg-white/5 active:scale-95 min-w-0">
+                    <div className={cn("p-2 rounded-lg w-fit mb-3 shrink-0", stat.bg)}>
+                      <stat.icon className={cn("w-4 h-4 sm:w-5 sm:h-5", stat.color)} />
                     </div>
-                    System Activity
-                  </h2>
-                  <p className="text-[10px] text-zinc-500 mt-0.5 md:mt-1 uppercase tracking-widest font-black opacity-50">Real-time telemetry stream</p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 items-stretch sm:items-center w-full md:w-auto">
-                  <div className="relative w-full sm:w-64 group">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-500 group-focus-within:text-white transition-colors" />
-                    <input
-                      type="text"
-                      placeholder="Filter events..."
-                      value={logSearchQuery}
-                      onChange={e => setLogSearchQuery(e.target.value)}
-                      className="w-full bg-zinc-900 border border-white/5 rounded-xl pl-9 pr-4 py-2.5 text-xs focus:outline-none focus:ring-1 focus:ring-amber-500/30 transition-all font-sans"
-                    />
+                    <div className="text-xl sm:text-2xl font-black text-white leading-none tabular-nums truncate w-full">{stat.value}</div>
+                    <div className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider mt-1 truncate w-full opacity-60">{stat.label}</div>
                   </div>
-
-                  <div className="flex w-full sm:w-auto bg-zinc-900 rounded-xl p-1 border border-white/5 relative overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                    <div className="flex gap-1 min-w-full sm:min-w-0">
-                      {["all", "system", "add", "change", "unlink"].map((f) => (
-                        <button
-                          key={f}
-                          onClick={() => setLogFilter(f)}
-                          className={cn(
-                            "flex-1 sm:flex-none px-3 py-1.5 text-[10px] uppercase font-black tracking-wider rounded-lg transition-all relative z-10 whitespace-nowrap",
-                            logFilter === f ? "text-black" : "text-zinc-500 hover:text-zinc-200"
-                          )}
-                        >
-                          <span className="relative z-10">{f}</span>
-                          {logFilter === f && (
-                            <motion.div
-                              layoutId="activeFilterMain"
-                              className="absolute inset-0 bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.4)] rounded-lg"
-                              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                            />
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
 
-              {/* Log Content - Premium Cards */}
-              <div className="space-y-3 pr-2 scroll-smooth" ref={scrollRef}>
-                {filteredEvents.length === 0 ? (
-                  <div className="h-full flex flex-col items-center justify-center text-zinc-600 space-y-4 py-32 bg-zinc-900/20 rounded-[2.5rem] border border-white/5 border-dashed">
-                    <div className="p-4 bg-white/5 rounded-full">
-                      <Search className="w-8 h-8 opacity-20" />
+              {/* Log Content Primary Container - Moulded like Analytics */}
+              <div className="glass-card rounded-[1.5rem] sm:rounded-[3rem] p-3 sm:p-8 border-none flex flex-col space-y-5 sm:space-y-8 w-full max-w-full overflow-hidden">
+                {/* Log Header with Filters inside the container */}
+                <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 border-b border-white/5 pb-6 sm:pb-8">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight flex items-center gap-2 md:gap-3">
+                        <div className="p-1.5 md:p-2 bg-amber-500/20 rounded-lg md:rounded-xl">
+                          <Activity className="w-4 h-4 md:w-5 md:h-5 text-amber-400" />
+                        </div>
+                        System Activity
+                      </h2>
+                      <p className="text-[10px] text-zinc-500 mt-1 uppercase tracking-widest font-black opacity-30">Live telemetry stream</p>
                     </div>
-                    <p className="italic font-sans text-sm tracking-tight text-zinc-500">No telemetry matches your current filter</p>
                   </div>
-                ) : (
-                  filteredEvents.slice().slice(-100).reverse().map((e, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="group relative flex items-start gap-3 md:gap-4 p-3 md:p-5 rounded-2xl md:rounded-3xl bg-zinc-900/40 border border-white/[0.03] hover:bg-zinc-900/60 hover:border-white/10 transition-all duration-300 backdrop-blur-sm"
-                    >
-                      {/* Visual Category Indicator */}
-                      <div className={cn(
-                        "w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-xl md:rounded-2xl flex items-center justify-center border transition-all group-hover:scale-110",
-                        e.message ? "bg-amber-500/10 border-amber-500/20 text-amber-500" :
-                          e.event === 'add' ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" :
-                            e.event === 'change' ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-400" :
-                              "bg-rose-500/10 border-rose-500/20 text-rose-400"
-                      )}>
-                        {e.message ? <Terminal className="w-4 h-4 md:w-5 md:h-5" /> :
-                          e.event === 'add' ? <Plus className="w-4 h-4 md:w-5 md:h-5" /> :
-                            e.event === 'change' ? <Activity className="w-4 h-4 md:w-5 md:h-5" /> :
-                              <Trash2 className="w-4 h-4 md:w-5 md:h-5" />}
-                      </div>
 
-                      {/* Info Area */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1.5 md:mb-2 text-wrap break-words">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <span className={cn(
-                              "text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full",
-                              e.message ? "bg-amber-500/20 text-amber-400" :
-                                e.event === 'add' ? "bg-emerald-500/20 text-emerald-400" :
-                                  e.event === 'change' ? "bg-indigo-500/20 text-indigo-400" :
-                                    "bg-rose-500/20 text-rose-400"
+                  <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center w-full xl:w-auto">
+                    <div className="relative flex-1 lg:flex-none lg:w-72 group">
+                      <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-amber-400 transition-colors" />
+                      <input
+                        type="text"
+                        placeholder="Search logs..."
+                        value={logSearchQuery}
+                        onChange={e => setLogSearchQuery(e.target.value)}
+                        className="w-full bg-black/60 border border-white/5 rounded-2xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500/30 transition-all font-sans placeholder:text-zinc-600"
+                      />
+                    </div>
+
+                    <div className="flex bg-black/60 rounded-2xl p-1 border border-white/5 overflow-x-auto no-scrollbar">
+                      <div className="flex gap-1 w-full lg:w-auto">
+                        {["all", "system", "add", "change", "unlink"].map((f) => (
+                          <button
+                            key={f}
+                            onClick={() => setLogFilter(f)}
+                            className={cn(
+                              "flex-none px-4 sm:px-5 py-2 text-[10px] sm:text-[11px] uppercase font-bold tracking-widest rounded-xl transition-all relative z-10 whitespace-nowrap",
+                              logFilter === f ? "text-black" : "text-zinc-500 hover:text-zinc-200"
+                            )}
+                          >
+                            <span className="relative z-10">{f}</span>
+                            {logFilter === f && (
+                              <motion.div
+                                layoutId="activeFilterMain"
+                                className="absolute inset-0 bg-amber-400 shadow-[0_0_20px_rgba(251,191,36,0.5)] rounded-xl"
+                                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                              />
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3 sm:space-y-4" ref={scrollRef}>
+                  {filteredEvents.length === 0 ? (
+                    <div className="h-full flex flex-col items-center justify-center text-zinc-600 space-y-4 py-20 bg-black/20 rounded-3xl border border-white/5 border-dashed">
+                      <div className="p-4 bg-white/5 rounded-full">
+                        <Search className="w-8 h-8 opacity-20" />
+                      </div>
+                      <p className="italic font-sans text-sm tracking-tight text-zinc-500">No telemetry matches your current filter</p>
+                    </div>
+                  ) : (
+                    filteredEvents.slice().slice(-100).reverse().map((e, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="group relative flex flex-col lg:flex-row items-start gap-4 p-4 sm:p-6 rounded-[1.5rem] sm:rounded-3xl bg-zinc-900/40 border border-white/[0.03] hover:bg-zinc-900/60 hover:border-white/10 transition-all duration-300 backdrop-blur-sm w-full min-w-0 overflow-hidden"
+                      >
+                        {/* Status Header - Mobile Optimized (Visible below LG) */}
+                        <div className="flex lg:hidden items-center justify-between w-full pb-3 border-b border-white/5 mb-1.5">
+                          <div className="flex items-center gap-2.5">
+                            <div className={cn(
+                              "w-7 h-7 rounded-lg flex items-center justify-center border transition-all",
+                              e.message ? "bg-amber-500/10 border-amber-500/20 text-amber-500" :
+                                e.event === 'add' ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" :
+                                  e.event === 'change' ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-400" :
+                                    "bg-rose-500/10 border-rose-500/20 text-rose-400"
                             )}>
-                              {e.message ? "SYSTEM" : e.event}
-                            </span>
-                            {e.module && <span className="text-[10px] text-zinc-600 font-mono">[{e.module}]</span>}
+                              {e.message ? <Terminal className="w-3.5 h-3.5" /> :
+                                e.event === 'add' ? <Plus className="w-3.5 h-3.5" /> :
+                                  e.event === 'change' ? <Activity className="w-3.5 h-3.5" /> :
+                                    <Trash2 className="w-3.5 h-3.5" />}
+                            </div>
+                            <div className="flex flex-col">
+                              <span className={cn(
+                                "text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full w-fit",
+                                e.message ? "bg-amber-500/10 text-amber-500" :
+                                  e.event === 'add' ? "bg-emerald-500/10 text-emerald-400" :
+                                    e.event === 'change' ? "bg-indigo-500/10 text-indigo-400" :
+                                      "bg-rose-500/10 text-rose-400"
+                              )}>{e.message ? "SYSTEM" : e.event}</span>
+                              {e.module && <span className="text-[8px] text-zinc-600 font-mono mt-0.5">[{e.module}]</span>}
+                            </div>
                           </div>
-                          <span className="text-[10px] font-bold text-zinc-500 tabular-nums">
+                          <span className="text-[10px] font-bold text-zinc-500 tabular-nums opacity-60">
                             {new Date(e.timestamp).toLocaleTimeString()}
                           </span>
                         </div>
 
-                        <div className="space-y-3">
-                          {e.message ? (
-                            <p className="text-sm text-zinc-200 leading-relaxed max-w-[95%]">
-                              {e.message}
-                            </p>
-                          ) : (
-                            <div className="flex items-center gap-2">
-                              <div className="w-1.5 h-1.5 rounded-full bg-zinc-700" />
-                              <span className="text-xs md:text-sm text-zinc-300 font-mono break-all selection:bg-amber-500/30 line-clamp-2 md:line-clamp-none">
-                                {e.path}
-                              </span>
-                            </div>
-                          )}
-
-                          {e.data && (
-                            <div className="mt-4 rounded-2xl overflow-hidden bg-black/40 border border-white/5 p-4 relative group/code">
-                              <div className="absolute top-2 right-2 opacity-0 group-hover/code:opacity-100 transition-opacity">
-                                <Badge variant="neutral" className="text-[8px] bg-white/5 border-none">PAYLOAD</Badge>
-                              </div>
-                              <pre className="text-[10px] text-zinc-500 font-mono overflow-auto max-h-40 custom-scrollbar pr-4">
-                                {JSON.stringify(e.data, null, 2)}
-                              </pre>
-                            </div>
-                          )}
+                        {/* Visual Category Indicator - Desktop Only (Visible at LG+) */}
+                        <div className={cn(
+                          "hidden lg:flex w-12 h-12 shrink-0 rounded-2xl items-center justify-center border transition-all group-hover:scale-110",
+                          e.message ? "bg-amber-500/10 border-amber-500/20 text-amber-500" :
+                            e.event === 'add' ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" :
+                              e.event === 'change' ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-400" :
+                                "bg-rose-500/10 border-rose-500/20 text-rose-400"
+                        )}>
+                          {e.message ? <Terminal className="w-5 h-5" /> :
+                            e.event === 'add' ? <Plus className="w-5 h-5" /> :
+                              e.event === 'change' ? <Activity className="w-5 h-5" /> :
+                                <Trash2 className="w-5 h-5" />}
                         </div>
-                      </div>
 
-                      <div className="hidden md:flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pr-2">
-                        <ChevronRight className="w-4 h-4 text-zinc-700" />
-                      </div>
-                    </motion.div>
-                  ))
-                )}
+                        {/* Info Area */}
+                        <div className="flex-1 min-w-0 w-full">
+                          <div className="hidden lg:flex items-center justify-between gap-1 mb-2">
+                            <div className="flex items-center gap-2">
+                              <span className={cn(
+                                "text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full",
+                                e.message ? "bg-amber-500/20 text-amber-400" :
+                                  e.event === 'add' ? "bg-emerald-500/20 text-emerald-400" :
+                                    e.event === 'change' ? "bg-indigo-500/20 text-indigo-400" :
+                                      "bg-rose-500/20 text-rose-400"
+                              )}>
+                                {e.message ? "SYSTEM" : e.event}
+                              </span>
+                              {e.module && <span className="text-[10px] text-zinc-600 font-mono">[{e.module}]</span>}
+                            </div>
+                            <span className="text-[10px] font-bold text-zinc-500 tabular-nums">
+                              {new Date(e.timestamp).toLocaleTimeString()}
+                            </span>
+                          </div>
+
+                          <div className="space-y-3">
+                            {e.message ? (
+                              <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed max-w-full break-all">
+                                {e.message}
+                              </p>
+                            ) : (
+                              <div className="flex items-start gap-2 min-w-0">
+                                <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-zinc-700 mt-1.5 shrink-0" />
+                                <span className="text-[11px] sm:text-sm text-zinc-300 font-mono break-all selection:bg-amber-500/30 line-clamp-4 lg:line-clamp-none min-w-0 flex-1">
+                                  {e.path}
+                                </span>
+                              </div>
+                            )}
+
+                            {e.data && (
+                              <div className="mt-3 md:mt-4 rounded-xl sm:rounded-2xl overflow-hidden bg-black/60 border border-white/5 p-3 md:p-4 relative group/code">
+                                <div className="absolute top-2 right-2 opacity-0 group-hover/code:opacity-100 transition-opacity">
+                                  <Badge variant="neutral" className="text-[8px] bg-white/5 border-none">PAYLOAD</Badge>
+                                </div>
+                                <pre className="text-[10px] sm:text-[11px] text-zinc-500 font-mono overflow-x-auto max-h-40 custom-scrollbar pr-4 w-full">
+                                  {JSON.stringify(e.data, null, 2)}
+                                </pre>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="hidden lg:flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pr-2">
+                          <ChevronRight className="w-4 h-4 text-zinc-700" />
+                        </div>
+                      </motion.div>
+                    ))
+                  )}
+                </div>
               </div>
             </div>
           )}
-
         </main>
       </div>
     </div>

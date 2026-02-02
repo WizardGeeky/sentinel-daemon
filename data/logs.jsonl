@@ -112,3 +112,12 @@
 {"timestamp":1769963744938,"level":1,"module":"notifier","message":"Notification handler registered"}
 {"timestamp":1769963744940,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
 {"timestamp":1769963744944,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
+{"timestamp":1770002312102,"level":1,"module":"notifier","message":"Notification handler registered"}
+{"timestamp":1770002312110,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
+{"timestamp":1770002312122,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
+{"timestamp":1770003527697,"level":1,"module":"notifier","message":"Notification handler registered"}
+{"timestamp":1770003527700,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
+{"timestamp":1770003527708,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
+{"timestamp":1770012417745,"level":1,"module":"notifier","message":"Notification handler registered"}
+{"timestamp":1770012417748,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
+{"timestamp":1770012417753,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
