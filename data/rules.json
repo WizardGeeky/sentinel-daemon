@@ -1,1 +1,170 @@
-[]
+[
+    {
+        "id": "rule-001",
+        "name": "TS file activity",
+        "filePattern": "*.ts",
+        "event": "add|change|unlink",
+        "action": "notify",
+        "confidence": 0.9
+    },
+    {
+        "id": "rule-002",
+        "name": "JS file changed",
+        "filePattern": "*.js",
+        "event": "change",
+        "action": "notify",
+        "confidence": 0.85
+    },
+    {
+        "id": "rule-003",
+        "name": "JSON file deleted",
+        "filePattern": "*.json",
+        "event": "unlink",
+        "action": "notify",
+        "confidence": 0.95
+    },
+    {
+        "id": "rule-004",
+        "name": "CSS file changed",
+        "filePattern": "*.css",
+        "event": "change",
+        "action": "notify",
+        "confidence": 0.8
+    },
+    {
+        "id": "rule-005",
+        "name": "Markdown documentation changed",
+        "filePattern": "*.md",
+        "event": "change",
+        "action": "notify",
+        "confidence": 0.85
+    },
+    {
+        "id": "rule-006",
+        "name": "Build artifact deleted",
+        "filePattern": "dist/**/*",
+        "event": "unlink",
+        "action": "notify",
+        "confidence": 0.9
+    },
+    {
+        "id": "rule-007",
+        "name": "Directory added",
+        "filePattern": "**/*",
+        "event": "addDir",
+        "action": "notify",
+        "confidence": 0.8
+    },
+    {
+        "id": "rule-008",
+        "name": "Directory deleted",
+        "filePattern": "**/*",
+        "event": "unlinkDir",
+        "action": "notify",
+        "confidence": 0.9
+    },
+    {
+        "id": "rule-009",
+        "name": "Source code directory activity",
+        "filePattern": "app/**/*.ts",
+        "event": "change",
+        "action": "notify",
+        "confidence": 0.88
+    },
+    {
+        "id": "rule-010",
+        "name": "Log file rapid changes",
+        "filePattern": "*.log",
+        "event": "change",
+        "threshold": {
+            "count": 3,
+            "withinMinutes": 1
+        },
+        "action": "notify",
+        "confidence": 0.75
+    },
+    {
+        "id": "rule-011",
+        "name": "Config file multiple adds",
+        "filePattern": "*.config.*",
+        "event": "add",
+        "threshold": {
+            "count": 5,
+            "withinMinutes": 5
+        },
+        "action": "notify",
+        "confidence": 0.7
+    },
+    {
+        "id": "rule-012",
+        "name": "Test file creation burst",
+        "filePattern": "*.test.ts",
+        "event": "add",
+        "threshold": {
+            "count": 2,
+            "withinMinutes": 2
+        },
+        "action": "notify",
+        "confidence": 0.82
+    },
+    {
+        "id": "rule-013",
+        "name": "Large file added",
+        "filePattern": "**/*",
+        "event": "add",
+        "action": "notify",
+        "confidence": 0.9
+    },
+    {
+        "id": "rule-014",
+        "name": "Multiple files deleted",
+        "filePattern": "**/*",
+        "event": "unlink",
+        "threshold": {
+            "count": 10,
+            "withinMinutes": 1
+        },
+        "action": "notify",
+        "confidence": 0.9
+    },
+    {
+        "id": "rule-015",
+        "name": "Sensitive file changed",
+        "filePattern": ".env|*.secret|*.key",
+        "event": "change",
+        "action": "notify",
+        "confidence": 0.95
+    },
+    {
+        "id": "rule-016",
+        "name": "Critical combination alert",
+        "filePattern": "*.config.*|.env",
+        "event": "add|change",
+        "threshold": {
+            "count": 2,
+            "withinMinutes": 2
+        },
+        "action": "notify",
+        "confidence": 0.99
+    },
+    {
+        "id": "bce6f980-ee19-4a8e-bcd2-23a59521af40",
+        "name": "monitor-env-changes",
+        "filePattern": "*.env",
+        "event": "change",
+        "action": "notify",
+        "confidence": 1,
+        "createdAt": 1770050031613,
+        "rawText": "Monitor .env changes"
+    },
+    {
+        "id": "generate-unique-id",
+        "name": "Monitor env changes",
+        "filePattern": "*.env",
+        "event": "change",
+        "action": "notify",
+        "confidence": 1,
+        "createdAt": 1770053557849,
+        "rawText": "Monitor .env changes"
+    }
+]
