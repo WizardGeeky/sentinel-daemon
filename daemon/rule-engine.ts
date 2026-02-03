@@ -6,13 +6,21 @@ import { Observation, Rule } from "@/lib/types";
 const logger = createLogger("rule-engine");
 
 function matchesPattern(path: string, pattern: string): boolean {
-  const regexPattern = pattern
-    .replace(/\./g, "\\.")
-    .replace(/\*/g, ".*")
-    .replace(/\?/g, ".");
+  // Support multiple patterns separated by |
+  const patterns = pattern.split('|');
 
-  const regex = new RegExp(`^${regexPattern}$`);
-  return regex.test(path);
+  return patterns.some(p => {
+    const regexPattern = p
+      .trim()
+      .replace(/\./g, "\\.")
+      .replace(/\*/g, ".*")
+      .replace(/\?/g, ".");
+
+    const regex = new RegExp(`^${regexPattern}$`);
+    // Normalize path to use forward slashes for matching
+    const normalizedPath = path.replace(/\\/g, '/');
+    return regex.test(normalizedPath) || regex.test(path);
+  });
 }
 
 function evaluateThreshold(
@@ -51,7 +59,9 @@ export function evaluateRules(
     const rules = getRules();
 
     for (const rule of rules) {
-      if (obs.event !== rule.event) continue;
+      // Support multiple events separated by |
+      const ruleEvents = rule.event.split('|');
+      if (!ruleEvents.includes(obs.event)) continue;
 
       if (!matchesPattern(obs.path, rule.filePattern)) continue;
 

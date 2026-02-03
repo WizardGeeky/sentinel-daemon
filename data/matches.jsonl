@@ -1,3 +1,11 @@
-{"ruleId":"rule-001","ruleName":"TS file added","observation":{"event":"add","path":"watched\\demo.ts","timestamp":1769943446260},"timestamp":1769943446267,"confidence":0.9}
-{"ruleName":"TS file added","observation":{"event":"add","path":"watched\\C1.ts","timestamp":1769931067019},"timestamp":1769931067024,"confidence":0.9}
-{"ruleName":"TS file added","observation":{"event":"add","path":"watched\\C1.ts","timestamp":1769937882713},"timestamp":1769937882716,"confidence":0.9}
+{"ruleId":"rule-001","ruleName":"TS file activity","observation":{"event":"add","path":"watched\\manual_test.ts","timestamp":1770049500269},"timestamp":1770049500275,"confidence":0.9}
+{"ruleId":"rule-013","ruleName":"Large file added","observation":{"event":"add","path":"watched\\manual_test.ts","timestamp":1770049500269},"timestamp":1770049500284,"confidence":0.9}
+{"ruleId":"rule-001","ruleName":"TS file activity","observation":{"event":"change","path":"watched\\manual_test.ts","timestamp":1770049630351},"timestamp":1770049630360,"confidence":0.9}
+{"ruleId":"rule-001","ruleName":"TS file activity","observation":{"event":"change","path":"watched\\manual_test.ts","timestamp":1770049634309},"timestamp":1770049634312,"confidence":0.9}
+{"ruleId":"rule-001","ruleName":"TS file activity","observation":{"event":"change","path":"watched\\manual_test.ts","timestamp":1770049636521},"timestamp":1770049636526,"confidence":0.9}
+{"ruleId":"rule-001","ruleName":"TS file activity","observation":{"event":"unlink","path":"watched\\manual_test.ts","timestamp":1770049661057},"timestamp":1770049661061,"confidence":0.9}
+{"ruleId":"rule-001","ruleName":"TS file activity","observation":{"event":"add","path":"watched\\manual_test.ts","timestamp":1770053026351},"timestamp":1770053026364,"confidence":0.9}
+{"ruleId":"rule-013","ruleName":"Large file added","observation":{"event":"add","path":"watched\\manual_test.ts","timestamp":1770053026351},"timestamp":1770053026383,"confidence":0.9}
+{"ruleId":"rule-001","ruleName":"TS file activity","observation":{"event":"change","path":"watched\\manual_test.ts","timestamp":1770053063703},"timestamp":1770053063722,"confidence":0.9}
+{"ruleId":"rule-001","ruleName":"TS file activity","observation":{"event":"change","path":"watched\\manual_test.ts","timestamp":1770053067831},"timestamp":1770053067843,"confidence":0.9}
+{"ruleId":"rule-001","ruleName":"TS file activity","observation":{"event":"unlink","path":"watched\\manual_test.ts","timestamp":1770053091655},"timestamp":1770053091667,"confidence":0.9}

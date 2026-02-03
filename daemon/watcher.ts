@@ -21,7 +21,7 @@ export function startWatcher(): void {
       ignoreInitial: true,
       persistent: true,
       awaitWriteFinish: {
-        stabilityThreshold: 2000,
+        stabilityThreshold: 500,
         pollInterval: 100,
       },
       ignored: /(^|[\/\\])\.|node_modules|\.next/,
@@ -42,6 +42,7 @@ export function startWatcher(): void {
       .on("ready", () => {
         isWatching = true;
         logger.info("Watcher ready", { dir });
+        console.log(`\n🚀 SENTINEL: Watching for changes in ${dir}...\n`);
       });
   } catch (err) {
     logger.error("Failed to start watcher", { error: String(err), dir });

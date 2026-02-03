@@ -1,123 +1,65 @@
-{"timestamp":1769942059830,"level":1,"module":"rule-learner","message":"Learning rule Start"}
-{"timestamp":1769942059835,"level":1,"module":"rule-learner","message":"Learning rule from Ollama","data":{"model":"llama3","text":"Detect large file additions"}}
-{"timestamp":1769942110619,"level":1,"module":"rule-learner","message":"Rule learned successfully","data":{"ruleId":"873da1d4-52c2-4681-8bce-55a7e40eb717","ruleName":"detect-large-file-additions"}}
-{"timestamp":1769942110623,"level":1,"module":"store","message":"Rule saved","data":{"ruleId":"873da1d4-52c2-4681-8bce-55a7e40eb717","ruleName":"detect-large-file-additions"}}
-{"timestamp":1769942110625,"level":1,"module":"api/rules","message":"New rule created via API","data":{"ruleId":"873da1d4-52c2-4681-8bce-55a7e40eb717"}}
-{"timestamp":1769942553919,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769942553922,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769942553970,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769942560050,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769942560053,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769942560086,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769942733117,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769942733122,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769942733181,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769943134525,"level":3,"module":"store","message":"Failed to read rules","data":{"error":"SyntaxError: Unexpected token ']', ...\".99\n  },\n\n]\" is not valid JSON"}}
-{"timestamp":1769943134529,"level":1,"module":"store","message":"Recovered: wrote clean rules.json"}
-{"timestamp":1769943190045,"level":1,"module":"rule-learner","message":"Learning rule Start"}
-{"timestamp":1769943190047,"level":1,"module":"rule-learner","message":"Learning rule from Ollama","data":{"model":"llama3","text":"Monitor /app for deletions"}}
-{"timestamp":1769943250604,"level":1,"module":"rule-learner","message":"Rule learned successfully","data":{"ruleId":"a304df7c-ef72-4888-9a99-98079228d248","ruleName":"Monitor deletion rule"}}
-{"timestamp":1769943250610,"level":1,"module":"store","message":"Rule saved","data":{"ruleId":"a304df7c-ef72-4888-9a99-98079228d248","ruleName":"Monitor deletion rule"}}
-{"timestamp":1769943250612,"level":1,"module":"api/rules","message":"New rule created via API","data":{"ruleId":"a304df7c-ef72-4888-9a99-98079228d248"}}
-{"timestamp":1769943446264,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file added","path":"watched\\demo.ts"}}
-{"timestamp":1769943446267,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file added"}}
-{"timestamp":1769943446269,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file added","event":"add","path":"watched\\demo.ts"}}
-{"timestamp":1769943767418,"level":1,"module":"rule-learner","message":"Learning rule Start"}
-{"timestamp":1769943767421,"level":1,"module":"rule-learner","message":"Learning rule from Ollama","data":{"model":"llama3","text":"Watch package.json for changes"}}
-{"timestamp":1769943828127,"level":3,"module":"rule-learner","message":"Failed to learn rule","data":{"error":"[\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": false,\n    \"path\": [\n      \"threshold\",\n      \"withinMinutes\"\n    ],\n    \"message\": \"Too small: expected number to be >0\"\n  }\n]","text":"Watch package.json for changes"}}
-{"timestamp":1769943828134,"level":3,"module":"api/rules","message":"Failed to learn rule","data":{"error":"[\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": false,\n    \"path\": [\n      \"threshold\",\n      \"withinMinutes\"\n    ],\n    \"message\": \"Too small: expected number to be >0\"\n  }\n]"}}
-{"timestamp":1769943909770,"level":1,"module":"rule-learner","message":"Learning rule Start"}
-{"timestamp":1769943909772,"level":1,"module":"rule-learner","message":"Learning rule from Ollama","data":{"model":"llama3","text":"Watch package.json for changes"}}
-{"timestamp":1769943941091,"level":3,"module":"rule-learner","message":"Failed to learn rule","data":{"error":"[\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": false,\n    \"path\": [\n      \"threshold\",\n      \"withinMinutes\"\n    ],\n    \"message\": \"Too small: expected number to be >0\"\n  }\n]","text":"Watch package.json for changes"}}
-{"timestamp":1769943941094,"level":3,"module":"api/rules","message":"Failed to learn rule","data":{"error":"[\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": false,\n    \"path\": [\n      \"threshold\",\n      \"withinMinutes\"\n    ],\n    \"message\": \"Too small: expected number to be >0\"\n  }\n]"}}
-{"timestamp":1769944060402,"level":1,"module":"rule-learner","message":"Learning rule Start"}
-{"timestamp":1769944060405,"level":1,"module":"rule-learner","message":"Learning rule from Ollama","data":{"model":"llama3","text":"Watch package.json for changes"}}
-{"timestamp":1769944102467,"level":1,"module":"rule-learner","message":"Rule learned successfully","data":{"ruleId":"d2dee47a-8111-4f26-99eb-d27a22def367","ruleName":"Watch Package Json For Changes"}}
-{"timestamp":1769944102471,"level":1,"module":"store","message":"Rule saved","data":{"ruleId":"d2dee47a-8111-4f26-99eb-d27a22def367","ruleName":"Watch Package Json For Changes"}}
-{"timestamp":1769944102474,"level":1,"module":"api/rules","message":"New rule created via API","data":{"ruleId":"d2dee47a-8111-4f26-99eb-d27a22def367"}}
-{"timestamp":1769948854184,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769948854188,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769948854242,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769949473903,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769949473910,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769949473972,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769949977182,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769949977194,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769949977333,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769950947520,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769950947531,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769950947666,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769951439317,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769951439325,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769951439404,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769952227810,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952227826,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769952227851,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769952229138,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952229145,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769952229635,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769952249489,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952249491,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769952249526,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769952303641,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952303645,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769952303693,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769952345505,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952345515,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769952345532,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769952346156,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952346161,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769952346398,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769952394676,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952394693,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769952394718,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769952395552,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952395557,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769952395861,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769952493471,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952494273,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952535460,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952536407,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769952713849,"level":1,"module":"rule-learner","message":"Learning rule Start"}
-{"timestamp":1769952713853,"level":1,"module":"rule-learner","message":"Learning rule from Ollama","data":{"model":"llama3","text":"Monitor .env changes"}}
-{"timestamp":1769952785542,"level":1,"module":"rule-learner","message":"Rule learned successfully","data":{"ruleId":"0cbca461-9792-401b-907b-80f9bbecdaa1","ruleName":"Monitor env changes"}}
-{"timestamp":1769952785549,"level":1,"module":"store","message":"Rule saved","data":{"ruleId":"0cbca461-9792-401b-907b-80f9bbecdaa1","ruleName":"Monitor env changes"}}
-{"timestamp":1769952785553,"level":1,"module":"api/rules","message":"New rule created via API","data":{"ruleId":"0cbca461-9792-401b-907b-80f9bbecdaa1"}}
-{"timestamp":1769931067020,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleName":"TS file added","path":"watched\\C1.ts"}}
-{"timestamp":1769931067024,"level":1,"module":"store","message":"Rule matched","data":{"ruleName":"TS file added"}}
-{"timestamp":1769931067025,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file added","event":"add","path":"watched\\C1.ts"}}
-{"timestamp":1769937677172,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769937677180,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769937677234,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769937882715,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleName":"TS file added","path":"watched\\C1.ts"}}
-{"timestamp":1769937882718,"level":1,"module":"store","message":"Rule matched","data":{"ruleName":"TS file added"}}
-{"timestamp":1769937882719,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file added","event":"add","path":"watched\\C1.ts"}}
-{"timestamp":1769953310676,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769953311094,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769953331874,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769953331877,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769953331910,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769953560566,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769953560571,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769953560580,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769953560916,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769953560918,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769953561075,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769953857063,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769953857066,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769953857093,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769963290098,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769963290103,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769963290111,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1769963744938,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1769963744940,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1769963744944,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1770002312102,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1770002312110,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1770002312122,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1770003527697,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1770003527700,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1770003527708,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
-{"timestamp":1770012417745,"level":1,"module":"notifier","message":"Notification handler registered"}
-{"timestamp":1770012417748,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
-{"timestamp":1770012417753,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
+{"timestamp":1770049469964,"level":1,"module":"notifier","message":"Notification handler registered"}
+{"timestamp":1770049469967,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
+{"timestamp":1770049470014,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
+{"timestamp":1770049500270,"level":1,"module":"observer","message":"Event recorded","data":{"event":"add","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049500273,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049500276,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity"}}
+{"timestamp":1770049500277,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file activity","event":"add","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049500283,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-013","ruleName":"Large file added","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049500285,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-013","ruleName":"Large file added"}}
+{"timestamp":1770049500286,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"Large file added","event":"add","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049630354,"level":1,"module":"observer","message":"Event recorded","data":{"event":"change","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049630359,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049630361,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity"}}
+{"timestamp":1770049630363,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file activity","event":"change","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049634310,"level":1,"module":"observer","message":"Event recorded","data":{"event":"change","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049634312,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049634313,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity"}}
+{"timestamp":1770049634314,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file activity","event":"change","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049636522,"level":1,"module":"observer","message":"Event recorded","data":{"event":"change","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049636524,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049636527,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity"}}
+{"timestamp":1770049636528,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file activity","event":"change","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049661058,"level":1,"module":"observer","message":"Event recorded","data":{"event":"unlink","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049661060,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049661061,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity"}}
+{"timestamp":1770049661062,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file activity","event":"unlink","path":"watched\\manual_test.ts"}}
+{"timestamp":1770049735821,"level":1,"module":"notifier","message":"Notification handler registered"}
+{"timestamp":1770049735824,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
+{"timestamp":1770049735874,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
+{"timestamp":1770049936355,"level":1,"module":"rule-learner","message":"Learning rule Start"}
+{"timestamp":1770049936361,"level":1,"module":"rule-learner","message":"Learning rule from Ollama","data":{"model":"llama3","text":"Monitor .env changes"}}
+{"timestamp":1770050031616,"level":1,"module":"rule-learner","message":"Rule learned successfully","data":{"ruleId":"bce6f980-ee19-4a8e-bcd2-23a59521af40","ruleName":"monitor-env-changes"}}
+{"timestamp":1770050031632,"level":1,"module":"store","message":"Rule saved","data":{"ruleId":"bce6f980-ee19-4a8e-bcd2-23a59521af40","ruleName":"monitor-env-changes"}}
+{"timestamp":1770050031638,"level":1,"module":"api/rules","message":"New rule created via API","data":{"ruleId":"bce6f980-ee19-4a8e-bcd2-23a59521af40"}}
+{"timestamp":1770052941183,"level":1,"module":"notifier","message":"Notification handler registered"}
+{"timestamp":1770052941189,"level":1,"module":"daemon","message":"Sentinel daemon started successfully"}
+{"timestamp":1770052941324,"level":1,"module":"watcher","message":"Watcher ready","data":{"dir":"./watched"}}
+{"timestamp":1770053026355,"level":1,"module":"observer","message":"Event recorded","data":{"event":"add","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053026362,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053026366,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity"}}
+{"timestamp":1770053026370,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file activity","event":"add","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053026380,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-013","ruleName":"Large file added","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053026384,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-013","ruleName":"Large file added"}}
+{"timestamp":1770053026389,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"Large file added","event":"add","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053063707,"level":1,"module":"observer","message":"Event recorded","data":{"event":"change","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053063716,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053063726,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity"}}
+{"timestamp":1770053063729,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file activity","event":"change","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053067837,"level":1,"module":"observer","message":"Event recorded","data":{"event":"change","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053067841,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053067845,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity"}}
+{"timestamp":1770053067848,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file activity","event":"change","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053091660,"level":1,"module":"observer","message":"Event recorded","data":{"event":"unlink","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053091664,"level":1,"module":"rule-engine","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053091669,"level":1,"module":"store","message":"Rule matched","data":{"ruleId":"rule-001","ruleName":"TS file activity"}}
+{"timestamp":1770053091673,"level":1,"module":"notifier","message":"Notification sent","data":{"ruleName":"TS file activity","event":"unlink","path":"watched\\manual_test.ts"}}
+{"timestamp":1770053435282,"level":1,"module":"rule-learner","message":"Learning rule Start"}
+{"timestamp":1770053435289,"level":1,"module":"rule-learner","message":"Learning rule from Ollama","data":{"model":"llama3","text":"Monitor .env changes"}}
+{"timestamp":1770053557854,"level":1,"module":"rule-learner","message":"Rule learned successfully","data":{"ruleId":"generate-unique-id","ruleName":"Monitor env changes"}}
+{"timestamp":1770053557865,"level":1,"module":"store","message":"Rule saved","data":{"ruleId":"generate-unique-id","ruleName":"Monitor env changes"}}
+{"timestamp":1770053557873,"level":1,"module":"api/rules","message":"New rule created via API","data":{"ruleId":"generate-unique-id"}}
+{"timestamp":1770053705908,"level":3,"module":"store","message":"Failed to read rules","data":{"error":"SyntaxError: Expected ',' or ']' after array element in JSON at position 2617 (line 131 column 9)"}}
+{"timestamp":1770053705914,"level":1,"module":"store","message":"Recovered: wrote clean rules.json"}
+{"timestamp":1770053709918,"level":3,"module":"store","message":"Failed to read rules","data":{"error":"SyntaxError: Expected ',' or ']' after array element in JSON at position 2617 (line 131 column 9)"}}
+{"timestamp":1770053709924,"level":1,"module":"store","message":"Recovered: wrote clean rules.json"}

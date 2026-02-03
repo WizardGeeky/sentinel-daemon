@@ -28,7 +28,7 @@ export function handleObservation(obs: Observation): void {
     const filtered = history.filter((e) => e.timestamp > oneHourAgo);
     eventHistory.set(key, filtered);
 
-    logger.debug("Event recorded", { event: obs.event, path: obs.path });
+    logger.info("Event recorded", { event: obs.event, path: obs.path });
 
     evaluateRules(obs, eventHistory);
   } catch (err) {
